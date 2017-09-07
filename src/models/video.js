@@ -5,10 +5,8 @@ var Video = Backbone.Model.extend({
     this.set('id', video.id.videoId);
   },
 
-  select: function(event) {
-    console.log('in select');
-    console.log(this);
-    this.trigger('selected', this);
+  select: function() {
+    this.trigger('select', this);
   },
 
   render: function() {

@@ -1,15 +1,14 @@
 var VideoPlayerView = Backbone.View.extend({
   
+
   initialize: function() {
     
-    this.on('selected', this.render, this);
+    this.collection.on('select', (e) => this.render(e));
 
   },
 
-  render: function(video) {
-    console.log('I am here');
-    console.log(this);
-    this.$el.html(this.template());
+  render: function(video = this.collection.at(0)) {
+    this.$el.html(this.template(video.attributes));
     return this;
   },
 
