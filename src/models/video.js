@@ -1,16 +1,14 @@
 var Video = Backbone.Model.extend({
 
-  events: {
-    select: 'select'    
-  },
-
   initialize: function(video) {
     // override youtube's complex id field
     this.set('id', video.id.videoId);
   },
 
-  select: function() {
-    this.trigger('select', this);
+  select: function(event) {
+    console.log('in select');
+    console.log(this);
+    this.trigger('selected', this);
   },
 
   render: function() {

@@ -12,12 +12,6 @@ var VideoListView = Backbone.View.extend({
     this.$('.video-list').html('');
     
     this.collection.forEach(this.renderVideos, this);
-      ///var result = this.template((videoListView.render()));
-      //console.log('result', result);
-      //this.$el.html(videoListView.render().el);
-
-   // this.$el.html(this.template({ collection: videoViews }));
-
     return this;
   },  
 
