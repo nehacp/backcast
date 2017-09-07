@@ -2,7 +2,7 @@ var VideoListView = Backbone.View.extend({
  
   initialize: function() {
     this.collection.on('sync', this.render, this);
-    this.on('select', function() { console.log('this is rendering'); }, this);
+    this.collection.on('update', this.render, this);
   },  
 
   render: function() {
