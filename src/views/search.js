@@ -2,7 +2,8 @@ var SearchView = Backbone.View.extend({
 
   events: {
     'click .btn': 'handleClick',
-    'submit .form-control': 'handleClick'
+   
+    'keyup .form-control': 'handleKeypress'
   },
 
   render: function() {
@@ -11,7 +12,7 @@ var SearchView = Backbone.View.extend({
   },
 
   handleClick: function (event) {
-    event.preventDefault();
+    //event.preventDefault();
     let input = {
       'maxResults': '5',    
       'q': this.$('input').val(),
@@ -22,10 +23,25 @@ var SearchView = Backbone.View.extend({
     };
     this.$('input').val('');
     this.collection.search(input);
-    
+  },
+
+  handleKeypress: function(e) {
+    console.log(this.$('input').val());
+    let input = {
+      'maxResults': '5',    
+      'q': this.$('input').val(),
+      'key': window.YOUTUBE_API_KEY,
+      'part': 'snippet',
+      'videoEmbeddable': 'true', 
+      'type': 'video'
+    };
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      this.$('input').val('');
+    }
+    this.collection.search(input);
   },
   
-
   template: templateURL('src/templates/search.html')
 
 });
