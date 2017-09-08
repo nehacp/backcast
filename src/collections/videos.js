@@ -3,12 +3,18 @@ var Videos = Backbone.Collection.extend({
   model: Video,
 
   search: function (query) {
-    var results;
     const searchPromise = new Promise((resolve, reject) => {
       $.ajax({
         url: 'https://www.googleapis.com/youtube/v3/search',
         type: 'GET',
-        data: query,
+        data: {
+          'maxResults': '5', 
+          'part': 'snippet', 
+          'q': query, 
+          'videoEmbeddable': 'true', 
+          'key': window.YOUTUBE_API_KEY,
+          'type': 'video' 
+        },
         success: resolve,
         error: reject
       });
@@ -16,16 +22,12 @@ var Videos = Backbone.Collection.extend({
 
     return searchPromise.then((data) => {
       this.update(data.items);
-    });
-//.catch((data => console.log('backcast: Fetch failed', data)));
-  },
-  
+    }).catch((data => console.log('backcast: Fetch failed', data)));
+  },  
 
   update: function(videos) {
-    console.log('update function');
     this.reset();
     videos.forEach(video => this.add(new Video(video)));
-    console.log('updated videos', this);
   }
 
 });
